@@ -1,0 +1,102 @@
+<!-- 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_02.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-->
+<html><head>
+	<meta charset="UTF-8">
+	<script src="jquery-1.11.0.min.js"></script>
+	<script src="common_js.js"></script>
+	<script src="common_jquery_func.js"></script>
+	<script>
+		//**************************************************
+		// $(document).ready(   function(){자스코딩}  );
+		//**************************************************
+			// body 태그 안의 요소들을 읽어들인 후 익명함수 내부의 자스코딩을 실행.
+		$(document).ready(function(){
+			insertYMD_to_select3(
+				$(".birth_year")              // 년도 관련 select 태그를 관리하는 JQuery 객체
+				, $(".birth_month")           // 월 관련 select 태그를 관리하는 JQuery 객체
+				, $(".birth_date")            // 일 관련 select 태그를 관리하는 JQuery 객체
+				, 1970                        // 최소년도
+				, new Date().getFullYear()    // 최대년도
+				, 1                           // 년도의 오름차순 또는 내림차순 옵션. 1이면 오름차순, 2면 내림차순
+			);
+		
+			$(".birth_year,.birth_month,.birth_date").change(function(){
+				var birth_year = $(".birth_year").val();
+				var birth_month = $(".birth_month").val();
+				var birth_date = $(".birth_date").val();
+				
+				/*
+				var str ="";
+				if(isEmpty(birth_year)){
+					str=str+"0";
+				}else{
+					str=str+"1";
+				}
+				if(isEmpty(birth_month)){
+					str=str+"0";
+				}else{
+					str=tsr+"2";
+				}
+				if(isEmpty(birth_date)){
+					str=str+"0";
+				}else{
+					str=tsr+"3";
+				}
+
+				if(str.indexOf("02")>=0){
+					alert("연도 먼저 입력 요망")
+					$("".birth_month").val("")
+				}
+				if(str.indexOf("03")>=0){
+					alert("월 먼저 입력 요망")
+					$("".birth_date").val("")
+				}
+
+				*/
+
+				if(isEmpty(birth_year)){
+					if(birth_month!=""||birth_date!=""){
+						alert("연도를 먼저 입력해주세요")
+						$(".birth_month").val("");
+						$(".birth_date").val("");
+					}
+				}else if(isEmpty(birth_month)){
+					if(birth_date!=""){
+						alert("월을 먼저 입력해주세요")
+						$(".birth_date").val("");
+					}
+				}
+				
+					insertValidDate(
+						$(".birth_year") 
+						,$(".birth_month")
+						,$(".birth_date")
+						)
+				
+			})
+		});
+	</script>
+</head>
+<body>
+	<form>
+		<select name="birth_year" class="birth_year">
+			<option value="">
+		</select>년
+		<select name="birth_month" class="birth_month">
+			<option value="">
+		</select>월
+		<select name="birth_date" class="birth_date">
+			<option value="">
+		</select>일
+
+		<input type="reset" value="초기화">
+
+	</form>
+</body>
+
+</html>
+
+
